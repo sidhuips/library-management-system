@@ -1,1 +1,1 @@
-# my-trainings
+# Library Management System
