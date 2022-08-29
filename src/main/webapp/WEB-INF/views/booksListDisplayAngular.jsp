@@ -13,7 +13,7 @@
 		<BR>
 		<table border="1">
 			<tr>
-				<th>Book Id</th>
+				<th>ISBN</th>
 				<th>Book Name</th>
 				<th>Author</th>
 				<th>Book Type</th>
