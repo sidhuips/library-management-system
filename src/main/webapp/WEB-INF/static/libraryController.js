@@ -1,6 +1,6 @@
 'use strict';
  
-angular.module('myCrudApp').controller('LibraryController', ['$scope', 'LibraryService', function($scope, LibraryService) {
+angular.module('myLibraryApp').controller('LibraryController', ['$scope', 'LibraryService', function($scope, LibraryService) {
     var self = this;
     self.book = { id: '', bookName:'', type: '', author:'' }
     self.books = [];

@@ -1,6 +1,6 @@
 'use strict';
  
-angular.module('myCrudApp').factory('LibraryService', ['$http', '$q', function($http, $q){
+angular.module('myLibraryApp').factory('LibraryService', ['$http', '$q', function($http, $q){
  
     var REST_SERVICE_URI = 'http://localhost:8080/library-management-system/books/';
  

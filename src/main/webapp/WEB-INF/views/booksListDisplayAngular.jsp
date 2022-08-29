@@ -6,7 +6,7 @@
 <title>Library Management System</title>
 </head>
 
-<body ng-app="myCrudApp" class="ng-cloak">
+<body ng-app="myLibraryApp" class="ng-cloak">
 	<div align="center" class="generic-container"
 		ng-controller="LibraryController as ctrl">
 		<h2>All Books in Library Using Angular and REST</h2>
