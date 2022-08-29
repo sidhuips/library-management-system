@@ -33,4 +33,3 @@
 	<script src="<c:url value='../static/libraryController.js' />"></script>
 </body>
 </html>
-<jsp:include page="footer.jsp"></jsp:include>

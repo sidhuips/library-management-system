@@ -20,10 +20,10 @@ public class LibraryRestController {
 
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public ResponseEntity<List<BookVO>> getProducts() {
-		List<BookVO> products = manager.getAllBooks();
-		if (products.isEmpty()) {
+		List<BookVO> books = manager.getAllBooks();
+		if (books.isEmpty()) {
 			return new ResponseEntity<List<BookVO>>(HttpStatus.NO_CONTENT);
 		}
-		return ResponseEntity.ok(products);
+		return ResponseEntity.ok(books);
 	}
 }
