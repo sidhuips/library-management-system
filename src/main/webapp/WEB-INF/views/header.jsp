@@ -26,7 +26,8 @@
 					<a href="/library-management-system/library/getAllBooks">Home</a>&nbsp
 						<a href="/library-management-system/library/addBook">Add Book</a>
 						&nbsp <a href="/library-management-system/library/removeBook">Remove
-							Book</a>
+							Book</a>&nbsp <a href="/library-management-system/library/search">Search</a>
+							&nbsp <a href="/library-management-system/library/updateBook">Update Book</a>
 					</h5>
 				</div>
 			</c:if>

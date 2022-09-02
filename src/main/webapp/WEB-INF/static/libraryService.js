@@ -2,7 +2,7 @@
  
 angular.module('myLibraryApp').factory('LibraryService', ['$http', '$q', function($http, $q){
  
-    var REST_SERVICE_URI = 'http://localhost:8080/library-management-system/books/';
+    var REST_SERVICE_URI = 'http://localhost:8080/library-management-system/';
  
     var factory = {
     	findAllBooks: findAllBooks
@@ -12,7 +12,7 @@ angular.module('myLibraryApp').factory('LibraryService', ['$http', '$q', functio
  
     function findAllBooks() {
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI)
+        $http.get(REST_SERVICE_URI+'books')
             .then(
             function (response) {
                 deferred.resolve(response.data);
@@ -24,7 +24,5 @@ angular.module('myLibraryApp').factory('LibraryService', ['$http', '$q', functio
         );
         return deferred.promise;
     }
- 
-   
  
 }]);
