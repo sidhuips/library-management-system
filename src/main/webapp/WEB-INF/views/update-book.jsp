@@ -10,7 +10,12 @@
     <body>
     <div><BR><BR></div>
         <c:if test="${updateBookSuccess}">
-            <div align="center">Successfully updated Book with ISBN: ${savedBook.id}</div>
+            <div align="center">Successfully updated Book with ISBN: ${updatedBook.id}</div>
+            <BR><BR>
+        </c:if>
+        
+        <c:if test="${bookDoesNotExist}">
+            <div align="center">No book found with ISBN: ${updatedBook.id}</div>
             <BR><BR>
         </c:if>
 

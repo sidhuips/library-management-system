@@ -13,6 +13,10 @@
             <div align="center">Successfully added Book with ISBN: ${savedBook.id}</div>
             <BR><BR>
         </c:if>
+        <c:if test="${bookExists}">
+            <div align="center">A book already exists with ISBN: ${savedBook.id}</div>
+            <BR><BR>
+        </c:if>
 
         <c:url var="add_book_url" value="/library/addBook"/>
         <form:form action="${add_book_url}" method="post" modelAttribute="book" align="center">

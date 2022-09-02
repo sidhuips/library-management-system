@@ -79,9 +79,17 @@ public class LibraryController
 	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
     public RedirectView addBook(@ModelAttribute("book") BookVO book, RedirectAttributes redirectAttributes) {
 		BookVO bookAdded = libraryService.addBook(book);
+		if(bookAdded!=null) {
+	        redirectAttributes.addFlashAttribute("savedBook", bookAdded);
+	        redirectAttributes.addFlashAttribute("addBookSuccess", true);
+
+		}else {
+	        redirectAttributes.addFlashAttribute("bookExists", true);
+	        redirectAttributes.addFlashAttribute("addBookSuccess", false);
+	        redirectAttributes.addFlashAttribute("savedBook", book);
+
+		}
 		final RedirectView redirectView = new RedirectView("/library/addBook", true);
-        redirectAttributes.addFlashAttribute("savedBook", bookAdded);
-        redirectAttributes.addFlashAttribute("addBookSuccess", true);
         redirectAttributes.addFlashAttribute("displayheader", true);
         return redirectView;
     }
@@ -96,10 +104,17 @@ public class LibraryController
 	@RequestMapping(value = "/updateBook", method = RequestMethod.POST)
     public RedirectView updateBook(@ModelAttribute("book") BookVO book, RedirectAttributes redirectAttributes) {
 		BookVO bookUpdated = libraryService.updateBook(book);
+		if(bookUpdated!=null) {
+	        redirectAttributes.addFlashAttribute("updatedBook", bookUpdated);
+	        redirectAttributes.addFlashAttribute("updateBookSuccess", true);
 
+		}else {
+	        redirectAttributes.addFlashAttribute("bookDoesNotExist", true);
+	        redirectAttributes.addFlashAttribute("updateBookSuccess", false);
+	        redirectAttributes.addFlashAttribute("updatedBook", book);
+
+		}
 		final RedirectView redirectView = new RedirectView("/library/updateBook", true);
-        redirectAttributes.addFlashAttribute("savedBook", bookUpdated);
-        redirectAttributes.addFlashAttribute("updateBookSuccess", true);
         redirectAttributes.addFlashAttribute("displayheader", true);
         return redirectView;
     }
@@ -116,8 +131,16 @@ public class LibraryController
 		BookVO bookRemoved = libraryService.removeBook(book);
 
 		final RedirectView redirectView = new RedirectView("/library/removeBook", true);
-        redirectAttributes.addFlashAttribute("removedBook", bookRemoved);
-        redirectAttributes.addFlashAttribute("removeBookSuccess", true);
+		if(bookRemoved!=null) {
+	        redirectAttributes.addFlashAttribute("removedBook", bookRemoved);
+	        redirectAttributes.addFlashAttribute("removeBookSuccess", true);
+
+		}else {
+	        redirectAttributes.addFlashAttribute("bookDoesNotExist", true);
+	        redirectAttributes.addFlashAttribute("removeBookSuccess", false);
+	        redirectAttributes.addFlashAttribute("removedBook", book);
+
+		}
         redirectAttributes.addFlashAttribute("displayheader", true);
         return redirectView;
     }

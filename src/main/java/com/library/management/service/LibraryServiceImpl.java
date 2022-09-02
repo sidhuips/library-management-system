@@ -31,16 +31,25 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public BookVO addBook(BookVO book) {
+		BookVO existingBook = bookDao.findBookById(book.getId());
+		if(existingBook != null)
+			return null;
 		return bookDao.addBook(book);
 	}
 
 	@Override
 	public BookVO updateBook(BookVO book) {
+		BookVO existingBook = bookDao.findBookById(book.getId());
+		if(existingBook == null)
+			return null;
 		return bookDao.updateBook(book);
 	}
 	
 	@Override
 	public BookVO removeBook(BookVO book) {
+		BookVO existingBook = bookDao.findBookById(book.getId());
+		if(existingBook == null)
+			return null;
 		return bookDao.removeBook(book);
 	}
 	

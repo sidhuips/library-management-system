@@ -13,6 +13,11 @@
             <div align="center">Successfully removed Book with ISBN: ${removedBook.id}</div>
             <BR><BR>
         </c:if>
+        
+        <c:if test="${bookDoesNotExist}">
+            <div align="center">No book found with ISBN: ${removedBook.id}</div>
+            <BR><BR>
+        </c:if>
 
         <c:url var="add_book_url" value="/library/removeBook"/>
         <form:form action="${add_book_url}" method="post" modelAttribute="book" align="center">
