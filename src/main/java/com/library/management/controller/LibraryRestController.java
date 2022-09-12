@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.library.management.model.BookVO;
-import com.library.management.service.LibraryManager;
+import com.library.management.service.LibraryService;
 
 @RestController
 public class LibraryRestController {
 
 	@Autowired
-	LibraryManager manager;
+	LibraryService libraryService;
 
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public ResponseEntity<List<BookVO>> getProducts() {
-		List<BookVO> books = manager.getAllBooks();
+		List<BookVO> books = libraryService.getAllBooks();
 		if (books.isEmpty()) {
 			return new ResponseEntity<List<BookVO>>(HttpStatus.NO_CONTENT);
 		}

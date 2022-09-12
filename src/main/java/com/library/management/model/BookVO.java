@@ -2,13 +2,27 @@ package com.library.management.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "book", schema = "library")
 public class BookVO implements Serializable 
 {
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@Column(name = "book_isbn")
 	private String id;
+	
+	@Column(name = "book_name")
 	private String bookName;
+	
+	@Column(name = "book_type")
 	private String type;
+	
+	@Column(name = "book_author")
 	private String author;
 	
 	public String getId() {

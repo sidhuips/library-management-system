@@ -1,35 +1,87 @@
 package com.library.management.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.library.management.model.BookVO;
 
 @Repository
 public class BookDAOImpl implements BookDAO {
-
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	@Override
+	@Transactional
 	public List<BookVO> getAllBooks() 
 	{
-		List<BookVO> books = new ArrayList<BookVO>();
-		
-		BookVO vo1 = new BookVO();
-		vo1.setId("1");
-		vo1.setBookName("The Tribute");
-		vo1.setAuthor("John Wall");
-		vo1.setType("Classic");
-
-		books.add(vo1);
-		
-		BookVO vo2 = new BookVO();
-		vo2.setId("2");
-		vo2.setBookName("History in the making");
-		vo2.setAuthor("Adam Silver");
-		vo2.setType("History");
-
-		books.add(vo2);
-		
-		return books;
+		Session session = sessionFactory.getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<BookVO> cr = cb.createQuery(BookVO.class);
+        Root <BookVO> root = cr.from(BookVO.class);
+        cr.select(root);
+        Query<BookVO> query = session.createQuery(cr);
+        List<BookVO> results = query.getResultList();
+        return results;
+	}
+	
+	@Transactional
+	@Override
+	public BookVO addBook(BookVO book) 
+	{
+		Session session = sessionFactory.getCurrentSession();
+		String isbn = (String) session.save(book);
+		book.setId(isbn);
+		return book;
+	}
+	
+	@Transactional
+	@Override
+	public BookVO findBookById(String isbn) {
+		Session session = sessionFactory.getCurrentSession();
+		BookVO book = session.byId(BookVO.class).load(isbn);
+		return book;
+	}
+	
+	@Transactional
+	@Override
+	public BookVO updateBook(BookVO book)
+	{
+		Session session = sessionFactory.getCurrentSession();
+		session.update(book);
+		return book;
+	}
+	
+	@Transactional
+	@Override
+	public BookVO removeBook(BookVO book)
+	{
+		Session session = sessionFactory.getCurrentSession();
+		session.remove(book);
+		return book;
+	}
+	
+	@Transactional
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<BookVO> searchBooks(String keyword)
+	{
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from BookVO where bookName like :keyword";		 
+		Query<BookVO> query = session.createQuery(hql);
+		query.setParameter("keyword", "%" + keyword + "%");
+		 
+		List<BookVO> listBooks = query.list();
+		return listBooks;
 	}
 }

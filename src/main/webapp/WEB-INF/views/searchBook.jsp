@@ -13,15 +13,10 @@
             <div align="center">Successfully removed Book with ISBN: ${removedBook.id}</div>
             <BR><BR>
         </c:if>
-        
-        <c:if test="${bookDoesNotExist}">
-            <div align="center">No book found with ISBN: ${removedBook.id}</div>
-            <BR><BR>
-        </c:if>
 
-        <c:url var="add_book_url" value="/library/removeBook"/>
-        <form:form action="${add_book_url}" method="post" modelAttribute="book" align="center">
-            <form:label path="id">ISBN: </form:label> <form:input type="text" path="id" required="required"/>
+        <c:url var="search_book_url" value="/library/searchBook"/>
+        <form:form action="${search_book_url}" method="post" modelAttribute="search" align="center">
+            <form:label path="searchString">Search Books: </form:label> <form:input type="text" path="searchString" required="required"/>
             <input type="submit" value="submit"/>
         </form:form>
         <div><BR><BR></div>

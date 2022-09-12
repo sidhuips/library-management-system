@@ -1,5 +1,8 @@
 package com.library.management.controller;
 
+import java.util.List;
+
+import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,24 +14,54 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.library.management.model.BookVO;
 import com.library.management.model.Login;
-import com.library.management.service.LibraryManager;
+import com.library.management.model.SearchVO;
+import com.library.management.service.LibraryService;
 
 @Controller
 @RequestMapping("/library")
 public class LibraryController 
 {
 	@Autowired
-	LibraryManager manager;
+	LibraryService libraryService;
 
 	@RequestMapping(value = "/getAllBooks", method = RequestMethod.GET)
 	public String getAllBooks(Model model)
 	{
-		model.addAttribute("books", manager.getAllBooks());
+		model.addAttribute("books", libraryService.getAllBooks());
 		model.addAttribute("displayheader", true);
 
 		return "booksListDisplay";
 	}
 	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search(Model model)
+	{
+
+		model.addAttribute("search", new SearchVO());
+		model.addAttribute("displayheader", true);
+		return "searchBook";
+	}
+	
+	@RequestMapping(value = "/searchBook", method = RequestMethod.POST)
+	public RedirectView searchBooks(@ModelAttribute("search") SearchVO search, RedirectAttributes redirectAttributes)
+	{
+		List<BookVO> booksFound = libraryService.findBooksByName(search.getSearchString());
+
+		 final RedirectView redirectView = new RedirectView("/library/searchResult", true);
+	        redirectAttributes.addFlashAttribute("books", booksFound);
+	        redirectAttributes.addFlashAttribute("searchString", search);
+	        redirectAttributes.addFlashAttribute("addBookSuccess", true);
+	        redirectAttributes.addFlashAttribute("displayheader", true);
+	        return redirectView;
+	}
+	@RequestMapping(value = "/searchResult", method = RequestMethod.GET)
+	public String searchResult(Model model, @ModelAttribute("searchString") SearchVO search)
+	{
+		model.addAttribute("search",search);
+		model.addAttribute("displayheader", true);
+	    return "searchResult";
+	}	
+
 	@RequestMapping(value = "/getAllBooksUsingAngularRest", method = RequestMethod.GET)
 	public String getAllBooksUsingRest(Model model)
 	{
@@ -45,9 +78,43 @@ public class LibraryController
 
 	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
     public RedirectView addBook(@ModelAttribute("book") BookVO book, RedirectAttributes redirectAttributes) {
-        final RedirectView redirectView = new RedirectView("/library/addBook", true);
-        redirectAttributes.addFlashAttribute("savedBook", book);
-        redirectAttributes.addFlashAttribute("addBookSuccess", true);
+		BookVO bookAdded = libraryService.addBook(book);
+		if(bookAdded!=null) {
+	        redirectAttributes.addFlashAttribute("savedBook", bookAdded);
+	        redirectAttributes.addFlashAttribute("addBookSuccess", true);
+
+		}else {
+	        redirectAttributes.addFlashAttribute("bookExists", true);
+	        redirectAttributes.addFlashAttribute("addBookSuccess", false);
+	        redirectAttributes.addFlashAttribute("savedBook", book);
+
+		}
+		final RedirectView redirectView = new RedirectView("/library/addBook", true);
+        redirectAttributes.addFlashAttribute("displayheader", true);
+        return redirectView;
+    }
+	
+	@RequestMapping(value = "/updateBook", method = RequestMethod.GET)
+    public String updateBookView(Model model) {
+        model.addAttribute("book", new BookVO());
+		model.addAttribute("displayheader", true);
+        return "update-book";
+    }
+
+	@RequestMapping(value = "/updateBook", method = RequestMethod.POST)
+    public RedirectView updateBook(@ModelAttribute("book") BookVO book, RedirectAttributes redirectAttributes) {
+		BookVO bookUpdated = libraryService.updateBook(book);
+		if(bookUpdated!=null) {
+	        redirectAttributes.addFlashAttribute("updatedBook", bookUpdated);
+	        redirectAttributes.addFlashAttribute("updateBookSuccess", true);
+
+		}else {
+	        redirectAttributes.addFlashAttribute("bookDoesNotExist", true);
+	        redirectAttributes.addFlashAttribute("updateBookSuccess", false);
+	        redirectAttributes.addFlashAttribute("updatedBook", book);
+
+		}
+		final RedirectView redirectView = new RedirectView("/library/updateBook", true);
         redirectAttributes.addFlashAttribute("displayheader", true);
         return redirectView;
     }
@@ -61,9 +128,19 @@ public class LibraryController
 
 	@RequestMapping(value = "/removeBook", method = RequestMethod.POST)
     public RedirectView removeBook(@ModelAttribute("book") BookVO book, RedirectAttributes redirectAttributes) {
-        final RedirectView redirectView = new RedirectView("/library/removeBook", true);
-        redirectAttributes.addFlashAttribute("removedBook", book);
-        redirectAttributes.addFlashAttribute("removeBookSuccess", true);
+		BookVO bookRemoved = libraryService.removeBook(book);
+
+		final RedirectView redirectView = new RedirectView("/library/removeBook", true);
+		if(bookRemoved!=null) {
+	        redirectAttributes.addFlashAttribute("removedBook", bookRemoved);
+	        redirectAttributes.addFlashAttribute("removeBookSuccess", true);
+
+		}else {
+	        redirectAttributes.addFlashAttribute("bookDoesNotExist", true);
+	        redirectAttributes.addFlashAttribute("removeBookSuccess", false);
+	        redirectAttributes.addFlashAttribute("removedBook", book);
+
+		}
         redirectAttributes.addFlashAttribute("displayheader", true);
         return redirectView;
     }
@@ -76,8 +153,9 @@ public class LibraryController
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String submit(Model model, @ModelAttribute("loginBean") Login loginBean) {
-		if (loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
-			if (loginBean.getUserName().equals("inder") && loginBean.getPassword().equals("inder123")) {
+		Login login = libraryService.getUser(loginBean.getUserName());
+		if (loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null && login!=null) {
+			if (StringUtils.equals(loginBean.getUserName(), login.getUserName()) && StringUtils.equals(loginBean.getPassword(), login.getPassword())) {
 				model.addAttribute("msg", loginBean.getUserName());
 				model.addAttribute("displayheader", true);
 				return "success";
