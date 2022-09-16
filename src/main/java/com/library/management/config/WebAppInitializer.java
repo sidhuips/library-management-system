@@ -1,4 +1,4 @@
-package com.library.management;
+package com.library.management.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { HibernateConfiguration.class};
+		return new Class[] { HibernateConfiguration.class, HttpClientConfig.class};
 	}
 
 	@Override
