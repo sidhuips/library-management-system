@@ -9,20 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.library.management.dao.BookDAO;
-import com.library.management.dao.UserDAO;
 import com.library.management.model.BookVO;
 import com.library.management.model.Login;
 import com.library.management.model.SearchVO;
 
 @Service
 public class LibraryServiceImpl implements LibraryService {
-
-	@Autowired
-	BookDAO bookDao;
-	
-	@Autowired
-	UserDAO user;
 	
 	@Autowired
 	RestTemplate restTemplate;
