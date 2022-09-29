@@ -45,7 +45,7 @@ public class LibraryController
 	@RequestMapping(value = "/searchBook", method = RequestMethod.POST)
 	public RedirectView searchBooks(@ModelAttribute("search") SearchVO search, RedirectAttributes redirectAttributes)
 	{
-		List<BookVO> booksFound = libraryService.findBooksByName(search.getSearchString());
+		List<BookVO> booksFound = libraryService.findBooksByName(search);
 
 		 final RedirectView redirectView = new RedirectView("/library/searchResult", true);
 	        redirectAttributes.addFlashAttribute("books", booksFound);

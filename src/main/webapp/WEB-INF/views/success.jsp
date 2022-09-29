@@ -9,7 +9,7 @@
 <title>Success Form</title>
 </head>
 <body>
-<div align = center>
+<div id="welcome" align = center>
 	<font color="green"><h1>Hello</h1></font>
 	<h2>${msg}</h2> You have successfully logged in.
 	<font color="green"><h1>Welcome to the Library !</h1></font><BR>

@@ -15,15 +15,15 @@
 			<table>
 				<tr>
 					<td>User Name</td>
-					<td><input type="text" name="userName" required="required"/></td>
+					<td><input type="text" id="username" name="userName" required="required"/></td>
 				</tr>
 				<tr>
 					<td>Password</td>
-					<td><input type="password" name="password" required="required"/></td>
+					<td><input type="password" id="password" name="password" required="required"/></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Submit" /></td>
+					<td><input type="submit" id="submit" value="Submit" /></td>
 				</tr>
 			</table>
 			<div style="color: red">${error}</div>

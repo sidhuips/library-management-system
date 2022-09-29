@@ -21,8 +21,8 @@
 
         <c:url var="add_book_url" value="/library/removeBook"/>
         <form:form action="${add_book_url}" method="post" modelAttribute="book" align="center">
-            <form:label path="id">ISBN: </form:label> <form:input type="text" path="id" required="required"/>
-            <input type="submit" value="submit"/>
+            <form:label path="id">ISBN: </form:label> <form:input type="text" path="id" required="required" id = "isbn"/>
+            <input type="submit" value="submit" id ="submit"/>
         </form:form>
         <div><BR><BR></div>
     </body>

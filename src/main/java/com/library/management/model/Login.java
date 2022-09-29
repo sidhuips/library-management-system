@@ -17,14 +17,21 @@ public class Login implements Serializable{
 	
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-	private int id;
+    public int id;
 	
 	@Id
 	@Column(name = "user_name")
-	private String userName;
+	public String userName;
 	
 	@Column(name = "password")
-	private String password;
+	public String password;
+
+	public Login(String userName) {
+		super();
+		this.userName = userName;
+	}
+	
+	public Login() {}
 
 	public String getUserName() {
 		return userName;

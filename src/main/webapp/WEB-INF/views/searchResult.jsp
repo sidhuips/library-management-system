@@ -10,7 +10,7 @@
 	<div align="center" class="generic-container">
 		<h2>Search Results</h2>
 		<BR>
-		<table border="1">
+		<table id="searchResult" border="1">
 			<tr>
 				<th>ISBN</th>
 				<th>Book Name</th>

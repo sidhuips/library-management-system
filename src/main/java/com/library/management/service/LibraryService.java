@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.library.management.model.BookVO;
 import com.library.management.model.Login;
+import com.library.management.model.SearchVO;
 
 public interface LibraryService 
 {
@@ -12,5 +13,5 @@ public interface LibraryService
 	public BookVO addBook(BookVO book);
 	public BookVO updateBook(BookVO book);
 	BookVO removeBook(BookVO book);
-	List<BookVO> findBooksByName(String keyword);
+	List<BookVO> findBooksByName(SearchVO search);
 }

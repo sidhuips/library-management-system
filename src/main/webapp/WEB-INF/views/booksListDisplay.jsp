@@ -10,7 +10,7 @@
 <body>
 <div align="center">
 	<h2>All Books in Library</h2><BR>
-	<table border="1">
+	<table id="bookList" border="1">
 		<tr>
 			<th>ISBN</th>
 			<th>Book Name</th>
