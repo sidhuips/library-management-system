@@ -16,8 +16,8 @@
 
         <c:url var="search_book_url" value="/library/searchBook"/>
         <form:form action="${search_book_url}" method="post" modelAttribute="search" align="center">
-            <form:label path="searchString">Search Books: </form:label> <form:input type="text" path="searchString" required="required"/>
-            <input type="submit" value="submit"/>
+            <form:label path="searchString">Search Books: </form:label> <form:input type="text" path="searchString" required="required" id="searchString"/>
+            <input type="submit" value="submit" id="submit"/>
         </form:form>
         <div><BR><BR></div>
     </body>

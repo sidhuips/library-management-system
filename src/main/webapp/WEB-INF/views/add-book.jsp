@@ -20,11 +20,11 @@
 
         <c:url var="add_book_url" value="/library/addBook"/>
         <form:form action="${add_book_url}" method="post" modelAttribute="book" align="center">
-            <form:label path="id">ISBN:* </form:label> <form:input type="text" path="id" required="required"/>
-            <form:label path="bookName">Book Name: </form:label> <form:input type="text" path="bookName"/>
+            <form:label path="id">ISBN:* </form:label> <form:input type="text" path="id" id = "isbn" required="required"/>
+            <form:label path="bookName">Book Name: </form:label> <form:input type="text" id="bookName" path="bookName"/>
             <form:label path="author">Author Name: </form:label> <form:input path="author"/>
             <form:label path="type">Book Type: </form:label> <form:input path="type"/>
-            <input type="submit" value="submit"/>
+            <input id = "submit" type="submit" value="submit"/>
         </form:form>
         <div><BR><BR></div>
     </body>

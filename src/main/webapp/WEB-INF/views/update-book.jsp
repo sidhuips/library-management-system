@@ -21,11 +21,11 @@
 
         <c:url var="update_book_url" value="/library/updateBook"/>
         <form:form action="${update_book_url}" method="post" modelAttribute="book" align="center">
-            <form:label path="id">ISBN:* </form:label> <form:input type="text" path="id" required="required"/>
-            <form:label path="bookName">Book Name: </form:label> <form:input type="text" path="bookName"/>
+            <form:label path="id">ISBN:* </form:label> <form:input type="text" path="id" required="required" id = "isbn"/>
+            <form:label path="bookName">Book Name: </form:label> <form:input type="text" path="bookName" id="bookName"/>
             <form:label path="author">Author Name: </form:label> <form:input path="author"/>
             <form:label path="type">Book Type: </form:label> <form:input path="type"/>
-            <input type="submit" value="submit"/>
+            <input type="submit" value="submit" id = "submit"/>
         </form:form>
         <div><BR><BR></div>
     </body>
